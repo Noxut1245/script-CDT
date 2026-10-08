@@ -67,6 +67,10 @@ local dragStart = Vector2.zero
 local startPos = UDim2.new() 
 local editingSpeed = false  
 
+-- ⚠️ DÉCLARATIONS ANTICIPÉES (correction du bug d'affichage)
+local speedDisplay
+local speedInput
+
 local function formatSpeedText(v) 
 	local s = string.format("%.2f", v) 
 	s = s:gsub("%.?0+$", "") 
@@ -187,11 +191,11 @@ local function stopHalfTurnTimer()
 	end
 end
 
--- BOUTON FLY - Utilisation d'un séparateur invisible pour casser la détection
+-- BOUTON FLY
 local fly = Instance.new("TextButton") 
 fly.Size = UDim2.new(0, 24, 0, 9) 
 fly.Position = UDim2.new(0, 3, 0.5, -4.)
-fly.Text = "F﻿L﻿Y"  -- Caractère de contrôle U+FEFF (BOM) invisible
+fly.Text = "F﻿L﻿Y"
 fly.Font = Enum.Font.GothamBold 
 fly.TextSize = 9 
 fly.TextColor3 = Color3.fromRGB(0, 0, 0) 
@@ -237,9 +241,10 @@ minus.TextYAlignment = Enum.TextYAlignment.Center
 minus.Parent = frame 
 Instance.new("UICorner", minus)  
 
-local speedDisplay = Instance.new("TextButton") 
+-- Création de speedDisplay SANS "local" (déjà déclaré plus haut)
+speedDisplay = Instance.new("TextButton") 
 speedDisplay.Size = UDim2.new(0, 30, 0, 10) 
-speedDisplay.Position = UDim2.new(0, 90, 0.5, -7)
+speedDisplay.Position = UDim2.new(0, 72, 0.4, -4.900)
 speedDisplay.Text = formatSpeedText(speedLevel) 
 speedDisplay.Font = Enum.Font.GothamBold 
 speedDisplay.TextSize = 10 
@@ -250,9 +255,8 @@ speedDisplay.AutoButtonColor = true
 speedDisplay.TextYAlignment = Enum.TextYAlignment.Top
 speedDisplay.Parent = frame  
 
-speedDisplay.Position = UDim2.new(0, 72, 0.4, -4.900)
-
-local speedInput = Instance.new("TextBox") 
+-- Création de speedInput SANS "local" (déjà déclaré plus haut)
+speedInput = Instance.new("TextBox") 
 speedInput.Size = UDim2.new(0, 30, 0, 10) 
 speedInput.Position = UDim2.new(0, 72, 0.5, -5)
 speedInput.Text = "" 
